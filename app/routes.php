@@ -4,7 +4,9 @@ use Symfony\Component\HttpFoundation\Request;
 use PPE_PHP\Domain\Comment;
 use PPE_PHP\Domain\Article;
 use PPE_PHP\Domain\Produit;
+use PPE_PHP\Domain\Famille;
 use PPE_PHP\Domain\User;
+use PPE_PHP\Form\Type\FamilleType;
 use PPE_PHP\Form\Type\CommentType;
 use PPE_PHP\Form\Type\ProduitType;
 use PPE_PHP\Form\Type\ArticleType;
@@ -33,13 +35,24 @@ $app->get('/produit', function () use ($app) {
     return $app['twig']->render('produit.html.twig', array('produits' => $produits));
 })->bind('produit');
 
-$app->get('/visiteur', function () use ($app) {
-    $produits = $app['dao.visiteur']->findAll();
-    return $app['twig']->render('visiteur.html.twig', array('visiteur' => $visiteur));
-})->bind('visiteur');
-
-
-
+// Add a new produit
+$app->match('/admin/produit/add', function(Request $request) use ($app) {
+    $produit = new Produit();
+    $famille = new Famille();;
+    $familleForm = $app['form.factory']->create(familleType::class, $famille);
+    $familleForm->handleRequest($request);
+    $produitForm = $app['form.factory']->create(ProduitType::class, $produit);
+    $produitForm->handleRequest($request);
+    if ($produitForm->isSubmitted() && $produitForm->isValid()) {
+        $app['dao.produit']->save($produit);
+        $app['session']->getFlashBag()->add('success', 'Le produit à bien été créé.');
+    }
+    return $app['twig']->render('produit_form.html.twig', array(
+        'nom' => 'Nouveau produit',
+        'produitForm' => $produitForm->createView(),
+        'familleForm' => $familleForm->createView(),
+        'famille' => $famille));
+})->bind('admin_produit_add');
 
 // Article details with comments
 $app->match('/article/{id}', function ($id, Request $request) use ($app) {
@@ -79,21 +92,6 @@ $app->get('/admin', function() use ($app) {
         'produits' => $produits,
         'users' => $users));
 })->bind('admin');
-
-
-// Add a new article
-$app->match('/admin/produit/add', function(Request $request) use ($app) {
-    $article = new Article();
-    $articleForm = $app['form.factory']->create(ArticleType::class, $article);
-    $articleForm->handleRequest($request);
-    if ($articleForm->isSubmitted() && $articleForm->isValid()) {
-        $app['dao.article']->save($article);
-        $app['session']->getFlashBag()->add('success', 'The article was successfully created.');
-    }
-    return $app['twig']->render('article_form.html.twig', array(
-        'title' => 'New article',
-        'articleForm' => $articleForm->createView()));
-})->bind('admin_article_add');
 
 // Add a new article
 $app->match('/admin/article/add', function(Request $request) use ($app) {

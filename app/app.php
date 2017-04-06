@@ -50,11 +50,6 @@ $app['dao.produit'] = function ($app) {
 };
 
 // Register services
-$app['dao.visiteur'] = function ($app) {
-    return new PPE_PHP\DAO\VisiteurDAO($app['db']);
-};
-
-// Register services
 $app['dao.famille'] = function ($app) {
     return new PPE_PHP\DAO\FamilleDAO($app['db']);
 };

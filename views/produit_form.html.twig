@@ -1,10 +1,15 @@
 {% extends 'layout.html.twig' %}
 {% set adminMenu = true %}
 
-{% block title %}{{ title }}{% endblock %}
+{% block nom %}
+<span class="glyphicon glyphicon-barcode"></span><br>
+<div style="color: #337ab7;padding-bottom: 10px;">
+    Création d'un nouveau produit
+</div>
+{% endblock %}
 
 {% block content %}
-<h2 class="text-center">{{ block('title') }}</h2>
+<h2 class="text-center">{{ block('nom') }}</h2>
 {% for flashMessage in app.session.flashbag.get('success') %}
 <div class="alert alert-success">
     {{ flashMessage }}
@@ -12,35 +17,132 @@
 {% endfor %}
 
 <div class="well">
-{{ form_start(articleForm, { 'attr': {'class': 'form-horizontal'} }) }}
-    <div class="form-group">
-        {{ form_label(articleForm.title, null, { 'label_attr':  {
+{{ form_start(produitForm, { 'attr': {'class': 'form-horizontal'} }) }}
+    <div class="form-group"><!-- ID PRODUIT -->
+        {{ form_label(produitForm.id_produit, null, { 'label_attr':  {
             'class': 'col-sm-4 control-label'
         }}) }}
-        <div class="col-sm-6">
-            {{ form_errors(articleForm.title) }}
-            {{ form_widget(articleForm.title, { 'attr':  {
+        <div class="col-sm-4">
+            {{ form_errors(produitForm.id_produit) }}
+            {{ form_widget(produitForm.id_produit, { 'attr':  {
                 'class': 'form-control'
             }}) }}
         </div>
     </div>
-    <div class="form-group">
-        {{ form_label(articleForm.content, null, { 'label_attr':  {
+    <div class="form-group"><!-- NOM -->
+        {{ form_label(produitForm.nom, null, { 'label_attr':  {
             'class': 'col-sm-4 control-label'
         }}) }}
-        <div class="col-sm-6">
-            {{ form_errors(articleForm.content) }}
-            {{ form_widget(articleForm.content, { 'a&ttr':  {
-                'class': 'form-control',
-                'rows': '8'
+        <div class="col-sm-4">
+            {{ form_errors(produitForm.nom) }}
+            {{ form_widget(produitForm.nom, { 'attr':  {
+                'class': 'form-control'
             }}) }}
         </div>
     </div>
+
+    <div class="form-group"><!-- NOM FAMILLE -->
+        {{ form_label(produitForm.nom, null, { 'label_attr':  {
+            'class': 'col-sm-4 control-label'
+        }}) }}
+        <div class="col-sm-4">
+            {{ form_errors(produitForm.id_famille) }}
+            {{ form_widget(produitForm.id_famille, { 'attr':  {
+                'class': 'form-control'
+            }}) }}
+        </div>
+    </div>
+
+    <div class="form-group"><!-- EFFETS -->
+        {{ form_label(produitForm.effets, null, { 'label_attr':  {
+            'class': 'col-sm-4 control-label'
+        }}) }}
+        <div class="col-sm-6">
+            {{ form_errors(produitForm.effets) }}
+            {{ form_widget(produitForm.effets, { 'attr':  {
+                'class': 'form-control',
+                'rows': '3'
+            }}) }}
+        </div>
+    </div>
+
+    <div class="form-group"><!-- CONTRE INDICATION -->
+        {{ form_label(produitForm.contre_indication, null, { 'label_attr':  {
+            'class': 'col-sm-4 control-label'
+        }}) }}
+        <div class="col-sm-6">
+            {{ form_errors(produitForm.contre_indication) }}
+            {{ form_widget(produitForm.contre_indication, { 'attr':  {
+                'class': 'form-control',
+                'rows': '3'
+            }}) }}
+        </div>
+    </div>
+
+    <div class="form-group"><!-- INTERACTION -->
+        {{ form_label(produitForm.interactions_autres_produits, null, { 'label_attr':  {
+            'class': 'col-sm-4 control-label'
+        }}) }}
+        <div class="col-sm-4">
+            {{ form_errors(produitForm.interactions_autres_produits) }}
+            {{ form_widget(produitForm.interactions_autres_produits, { 'attr':  {
+                'class': 'form-control'
+            }}) }}
+        </div>
+    </div>
+
+    <div class="form-group"><!-- PRESENTATION -->
+        {{ form_label(produitForm.presentation, null, { 'label_attr':  {
+            'class': 'col-sm-4 control-label'
+        }}) }}
+        <div class="col-sm-6">
+            {{ form_errors(produitForm.presentation) }}
+            {{ form_widget(produitForm.presentation, { 'attr':  {
+                'class': 'form-control',
+                'rows': '2'
+            }}) }}
+        </div>
+    </div>
+    <div class="form-group"><!-- DOSAGE -->
+        {{ form_label(produitForm.dosage, null, { 'label_attr':  {
+            'class': 'col-sm-4 control-label'
+        }}) }}
+        <div class="col-sm-1">
+            {{ form_errors(produitForm.dosage) }}
+            {{ form_widget(produitForm.dosage, { 'attr':  {
+                'class': 'form-control'
+            }}) }}
+        </div>
+    </div>
+    <div class="form-group"><!-- PRIX HT -->
+        {{ form_label(produitForm.prix_HT, null, { 'label_attr':  {
+            'class': 'col-sm-4 control-label'
+        }}) }}
+        <div class="col-sm-1">
+            {{ form_errors(produitForm.prix_HT) }}
+            {{ form_widget(produitForm.prix_HT, { 'attr':  {
+                'class': 'form-control'
+            }}) }}
+        </div>
+    </div>
+
+    <div class="form-group"><!-- PRIX ECHANTILLON -->
+        {{ form_label(produitForm.prix_Echantillon, null, { 'label_attr':  {
+            'class': 'col-sm-4 control-label'
+        }}) }}
+        <div class="col-sm-1">
+            {{ form_errors(produitForm.prix_Echantillon) }}
+            {{ form_widget(produitForm.prix_Echantillon, { 'attr':  {
+                'class': 'form-control'
+            }}) }}
+        </div>
+    </div>
+    <hr />
     <div class="form-group">
         <div class="col-sm-offset-4 col-sm-3">
             <input type="submit" class="btn btn-primary" value="Save" />
         </div>
     </div>
-{{ form_end(articleForm) }}
+{{ form_end(produitForm) }}
 </div>
 {% endblock %}
