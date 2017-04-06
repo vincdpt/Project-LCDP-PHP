@@ -1,0 +1,36 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<table class="table table-striped">
+  <thead>
+    <th>Nom du produit</th>
+    <th>Id du produit</th>
+    <th>Nom famille</th>
+    <th>Effets</th>
+    <th>Contres indications</th>
+    <th>Interactions autres produits</th>
+    <th>Présentation</th>
+    <th>Dosage</th>
+    <th>Prix HT</th>
+    <th>Prix échantillon</th>
+  </thead>
+  <tbody>
+{% for produit in produits %}
+<tr>
+    <th style="color: #337ab7;">{{ produit.nom }}</th>
+    <th style="font-size: 12px;">{{ produit.idProduit }}</th>  
+    <th style="font-size: 12px;">{{ produit.getFamilleName() }}</th> 
+    <th style="font-size: 12px;">{{ produit.getEffets() }}</th> 
+    <th style="font-size: 12px;">{{ produit.ContreIndication }}</th>  
+    <th style="font-size: 12px;">{{ produit.InteractionsAutresProduits }}</th>  
+    <th style="font-size: 12px;">{{ produit.presentation }}</th> 
+    <th style="font-size: 12px;">{{ produit.dosage }}</th>
+    <th style="font-size: 12px;">{{ produit.PrixHT }}€</th>
+    <th style="font-size: 12px;">{{ produit.PrixEchantillon }}€</th>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% endblock %}

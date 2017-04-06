@@ -33,6 +33,11 @@ $app->get('/produit', function () use ($app) {
     return $app['twig']->render('produit.html.twig', array('produits' => $produits));
 })->bind('produit');
 
+$app->get('/visiteur', function () use ($app) {
+    $produits = $app['dao.visiteur']->findAll();
+    return $app['twig']->render('visiteur.html.twig', array('visiteur' => $visiteur));
+})->bind('visiteur');
+
 
 
 

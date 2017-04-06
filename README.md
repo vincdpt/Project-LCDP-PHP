@@ -1,5 +1,3 @@
-# OC-MicroCMS
+# PPE
 
-Support du cours OpenClassrooms "Evoluer vers une architecture PHP professionnelle".
-
-Itération 10 : back-office d'administration.
+PPE GSB effectué par Thibaud De Morand De Jouffrey, Jean-Baptiste Alacaraz & Vincent Dupont.
