@@ -5,31 +5,32 @@
 {% block content %}
 <table class="table table-striped">
   <thead>
-    <th>Nom du produit</th>
-    <th>Id du produit</th>
-    <th>Nom famille</th>
-    <th>Effets</th>
-    <th>Contres indications</th>
-    <th>Interactions autres produits</th>
-    <th>Présentation</th>
-    <th>Dosage</th>
-    <th>Prix HT</th>
-    <th>Prix échantillon</th>
+    <th>Id du visiteur</th>
+    <th>Id du secteur</th>
+    <th>Nom</th>
+    <th>Prénom</th>
+    <th>Login</th>
+    <th>Mot de passe</th>
+    <th>Adresse</th>
+    <th>CP</th>
+    <th>Ville</th>
+    <th>Date embauche</th>
   </thead>
   <tbody>
-{% for produit in produits %}
+{% for visiteur in visiteurs %}
 <tr>
-    <th style="color: #337ab7;">{{ produit.nom }}</th>
-    <th style="font-size: 12px;">{{ produit.idProduit }}</th>  
-    <th style="font-size: 12px;">{{ produit.getFamilleName() }}</th> 
-    <th style="font-size: 12px;">{{ produit.getEffets() }}</th> 
-    <th style="font-size: 12px;">{{ produit.ContreIndication }}</th>  
-    <th style="font-size: 12px;">{{ produit.InteractionsAutresProduits }}</th>  
-    <th style="font-size: 12px;">{{ produit.presentation }}</th> 
-    <th style="font-size: 12px;">{{ produit.dosage }}</th>
-    <th style="font-size: 12px;">{{ produit.PrixHT }}€</th>
-    <th style="font-size: 12px;">{{ produit.PrixEchantillon }}€</th>
+    <th style="color: #337ab7;">{{ visiteur.idVisiteur() }}</th>
+    <th style="font-size: 12px;">{{ visiteur.idSecteur() }}</th>
+    <th style="font-size: 12px;">{{ visiteur.nom }}</th>
+    <th style="font-size: 12px;">{{ visiteur.prenom }}</th>
+    <th style="font-size: 12px;">{{ visiteur.login }}</th>
+    <th style="font-size: 12px;">{{ visiteur.mdp}}</th>
+    <th style="font-size: 12px;">{{ visiteur.adresse }}</th>
+    <th style="font-size: 12px;">{{ visiteur.cp }}</th>
+    <th style="font-size: 12px;">{{ visiteur.ville }}</th>
+    <th style="font-size: 12px;">{{ visiteur.dateEmbauche }}</th>
 </tr>
+
 {% endfor %}
 </tbody>
 </table>

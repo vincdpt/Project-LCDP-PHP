@@ -5,6 +5,7 @@ use PPE_PHP\Domain\Comment;
 use PPE_PHP\Domain\Article;
 use PPE_PHP\Domain\Produit;
 use PPE_PHP\Domain\Famille;
+use PPE_PHP\Domain\Visiteur;
 use PPE_PHP\Domain\User;
 use PPE_PHP\Form\Type\FamilleType;
 use PPE_PHP\Form\Type\CommentType;
@@ -29,11 +30,18 @@ $app->get('/login', function(Request $request) use ($app) {
 })->bind('login');
 
 // Home page
+// -- Produit
 $app->get('/produit', function () use ($app) {
     $produits = $app['dao.produit']->findAll();
     $famille = $app['dao.famille']->findAll();
     return $app['twig']->render('produit.html.twig', array('produits' => $produits));
 })->bind('produit');
+
+// -- Visiteur
+$app->get('/visiteur', function () use ($app) {
+    $visiteurs = $app['dao.visiteur']->findAll();
+    return $app['twig']->render('visiteur.html.twig', array('visiteurs' => $visiteurs));
+})->bind('visiteur');
 
 // Add a new produit
 $app->match('/admin/produit/add', function(Request $request) use ($app) {
@@ -53,6 +61,20 @@ $app->match('/admin/produit/add', function(Request $request) use ($app) {
         'familleForm' => $familleForm->createView(),
         'famille' => $famille));
 })->bind('admin_produit_add');
+
+// Add a new visiteur
+$app->match('/admin/visiteur/add', function(Request $request) use ($app) {
+    $visiteur = new Visiteur();
+    $visiteurForm = $app['form.factory']->create(VisiteurType::class, $visiteur);
+    $visiteurForm->handleRequest($request);
+    if ($visiteur->isSubmitted() && $visiteurForm->isValid()) {
+        $app['dao.visiteur']->save($visiteur);
+        $app['session']->getFlashBag()->add('success', 'Le visiteur a bien été créé.');
+    }
+    return $app['twig']->render('visiteur_form.html.twig', array(
+        'nom' => 'Nouveau visiteur',
+        'visiteurForm' => $visiteurForm->createView()));
+})->bind('admin_visiteur_add');
 
 // Article details with comments
 $app->match('/article/{id}', function ($id, Request $request) use ($app) {

@@ -48,6 +48,9 @@ $app->register(new Silex\Provider\ValidatorServiceProvider());
 $app['dao.produit'] = function ($app) {
     return new PPE_PHP\DAO\ProduitDAO($app['db']);
 };
+$app['dao.visiteur'] = function ($app) {
+    return new PPE_PHP\DAO\VisiteurDAO($app['db']);
+};
 
 // Register services
 $app['dao.famille'] = function ($app) {
@@ -59,10 +62,4 @@ $app['dao.article'] = function ($app) {
 };
 $app['dao.user'] = function ($app) {
     return new PPE_PHP\DAO\UserDAO($app['db']);
-};
-$app['dao.comment'] = function ($app) {
-    $commentDAO = new PPE_PHP\DAO\CommentDAO($app['db']);
-    $commentDAO->setArticleDAO($app['dao.article']);
-    $commentDAO->setUserDAO($app['dao.user']);
-    return $commentDAO;
 };

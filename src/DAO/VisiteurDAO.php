@@ -90,7 +90,7 @@ class VisiteurDAO extends DAO
      * @param array $row The DB row containing Visiteur data.
      * @return \PPE_PHP\Domain\Visiteur
      */
-    protected function buildDomainObject($row) {
+    protected function buildDomainObject(array $row) {
         $visiteur = new Visiteur();
         $visiteur->setIdVisiteur($row['id_visiteur']);
         $visiteur->setIdSecteur($row['id_secteur']);
