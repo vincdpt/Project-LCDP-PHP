@@ -1,9 +1,0 @@
-<?php
-
-namespace PPE_PHP\DAO;
-
-use PPE_PHP\Domain\Praticien;
-
-class PraticienDAO extends DAO
-{
-}
