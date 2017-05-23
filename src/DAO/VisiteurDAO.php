@@ -1,9 +1,6 @@
 <?php
-
 namespace PPE_PHP\DAO;
-
 use PPE_PHP\Domain\Visiteur;
-
 class VisiteurDAO extends DAO
 {
     /**
@@ -12,9 +9,8 @@ class VisiteurDAO extends DAO
      * @return array A list of all visiteurs.
      */
     public function findAll() {
-        $sql = "select * from visiteur order by cp";
+        $sql = "select * from visiteur order by id_visiteur";
         $result = $this->getDb()->fetchAll($sql);
-
         // Convert query result to an array of domain objects
         $visiteurs = array();
         foreach ($result as $row) {
@@ -23,6 +19,22 @@ class VisiteurDAO extends DAO
         }
         return $visiteurs;
     }
+
+    /**
+     * Returns the name of the secteur.
+     *
+     * @param integer $id The visiteur id.
+     *
+     * @return string of the response
+     */
+    public function findSecteurName($id_visiteur) {
+        $sql = "select secteur_intervention from secteur INNER JOIN visiteur on secteur.id_secteur = visiteur.id_secteur where id_visiteur=?";
+        $row = $this->getDb()->fetchAssoc($sql, array($id_visiteur));
+        $rep = $row['secteur_intervention'];
+        return $rep;
+    }
+
+
 
     /**
      * Returns an visiteur matching the supplied id.
@@ -34,18 +46,15 @@ class VisiteurDAO extends DAO
     public function find($id_visiteur) {
         $sql = "select * from visiteur where id_visiteur=?";
         $row = $this->getDb()->fetchAssoc($sql, array($id));
-
         if ($row)
             return $this->buildDomainObject($row);
         else
             throw new \Exception("No visiteur matching id " . $id_visiteur);
     }
-
-
     /**
      * Saves an visiteur into the database.
      *
-     * @param \PPE_PHP\Domain\Visiteur $visiteur The visiteur to save
+     * @param \MicroCMS\Domain\Visiteur $visiteur The visiteur to save
      */
     public function save(Visiteur $visiteur) {
         $visiteurData = array(
@@ -60,8 +69,7 @@ class VisiteurDAO extends DAO
             'ville' => $visiteur->getVille(),
             'dateEmbauche' => $visiteur->getDateEmbauche(),
             'Privileges' => $visiteur->getPrivileges(),
-            );
-
+        );
         if ($visiteur->getIdVisiteur()) {
             // The visiteur has already been saved : update it
             $this->getDb()->update('visiteur', $visiteurData, array('id_visiteur' => $visiteur->getIdVisiteur()));
@@ -73,7 +81,6 @@ class VisiteurDAO extends DAO
             $visiteur->setIdVisiteur($id_visiteur);
         }
     }
-
     /**
      * Removes an visiteur from the database.
      *
@@ -83,17 +90,19 @@ class VisiteurDAO extends DAO
         // Delete the visiteur
         $this->getDb()->delete('visiteur', array('id_visiteur' => $id_visiteur));
     }
-
     /**
      * Creates an Visiteur object based on a DB row.
      *
      * @param array $row The DB row containing Visiteur data.
-     * @return \PPE_PHP\Domain\Visiteur
+     * @return \MicroCMS\Domain\Visiteur
      */
     protected function buildDomainObject(array $row) {
+
+        $secteurIntervention = $this->findSecteurName($row['id_secteur']);
         $visiteur = new Visiteur();
         $visiteur->setIdVisiteur($row['id_visiteur']);
         $visiteur->setIdSecteur($row['id_secteur']);
+        $visiteur->setSecteurIntervention($secteurIntervention);
         $visiteur->setNom($row['nom']);
         $visiteur->setPrenom($row['prenom']);
         $visiteur->setLogin($row['login']);

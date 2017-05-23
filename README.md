@@ -1,5 +1,5 @@
-# OC-MicroCMS
+# Project LCDP  PHP
 
-Support du cours OpenClassrooms "Evoluer vers une architecture PHP professionnelle".
+Applciation web PHP crée par Vincent DUPONT, Thibaud Morand de Jouffrey et Jean-Baptiste ALCARAZ
 
-Itération 10 : back-office d'administration.
+Utilisation du framework Silex.

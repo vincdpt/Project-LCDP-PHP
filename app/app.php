@@ -8,6 +8,7 @@ ErrorHandler::register();
 ExceptionHandler::register();
 
 // Register service providers
+// Moteur de template : twig
 $app->register(new Silex\Provider\DoctrineServiceProvider());
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__.'/../views',
@@ -44,22 +45,29 @@ $app->register(new Silex\Provider\LocaleServiceProvider());
 $app->register(new Silex\Provider\TranslationServiceProvider());
 $app->register(new Silex\Provider\ValidatorServiceProvider());
 
-// Register services
+// Enregistrement des services
+
+// --------- Produits --------
 $app['dao.produit'] = function ($app) {
     return new PPE_PHP\DAO\ProduitDAO($app['db']);
 };
-$app['dao.visiteur'] = function ($app) {
-    return new PPE_PHP\DAO\VisiteurDAO($app['db']);
-};
 
-// Register services
 $app['dao.famille'] = function ($app) {
     return new PPE_PHP\DAO\FamilleDAO($app['db']);
 };
 
-$app['dao.article'] = function ($app) {
-    return new PPE_PHP\DAO\ArticleDAO($app['db']);
+// --------- Practiciens --------
+
+// --------- Visiteurs --------
+$app['dao.visiteur'] = function ($app) {
+    return new PPE_PHP\DAO\VisiteurDAO($app['db']);
 };
+$app['dao.secteur'] = function ($app) {
+    return new PPE_PHP\DAO\SecteurDAO($app['db']);
+};
+
+
+// --------- Utilisateurs --------
 $app['dao.user'] = function ($app) {
     return new PPE_PHP\DAO\UserDAO($app['db']);
 };

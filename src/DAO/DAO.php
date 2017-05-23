@@ -4,7 +4,7 @@ namespace PPE_PHP\DAO;
 
 use Doctrine\DBAL\Connection;
 
-abstract class DAO 
+abstract class DAO
 {
     /**
      * Database connection

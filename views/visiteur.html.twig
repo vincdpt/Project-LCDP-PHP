@@ -3,35 +3,37 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-<table class="table table-striped">
-  <thead>
-    <th>Id du visiteur</th>
-    <th>Id du secteur</th>
-    <th>Nom</th>
-    <th>Prénom</th>
-    <th>Login</th>
-    <th>Mot de passe</th>
-    <th>Adresse</th>
-    <th>CP</th>
-    <th>Ville</th>
-    <th>Date embauche</th>
-  </thead>
-  <tbody>
-{% for visiteur in visiteurs %}
-<tr>
-    <th style="color: #337ab7;">{{ visiteur.idVisiteur() }}</th>
-    <th style="font-size: 12px;">{{ visiteur.idSecteur() }}</th>
-    <th style="font-size: 12px;">{{ visiteur.nom }}</th>
-    <th style="font-size: 12px;">{{ visiteur.prenom }}</th>
-    <th style="font-size: 12px;">{{ visiteur.login }}</th>
-    <th style="font-size: 12px;">{{ visiteur.mdp}}</th>
-    <th style="font-size: 12px;">{{ visiteur.adresse }}</th>
-    <th style="font-size: 12px;">{{ visiteur.cp }}</th>
-    <th style="font-size: 12px;">{{ visiteur.ville }}</th>
-    <th style="font-size: 12px;">{{ visiteur.dateEmbauche }}</th>
-</tr>
+    <table class="table table-striped">
+        <thead>
+        <th>Id du visiteur</th>
+        <th>Nom du secteur</th>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Login</th>
+        <th>Mot de passe</th>
+        <th>Adresse</th>
+        <th>CP</th>
+        <th>Ville</th>
+        <th>Date embauche</th>
+        <th>Privilège</th>
+        </thead>
+        <tbody>
+        {% for visiteur in visiteurs %}
+            <tr>
+                <th style="color: #337ab7;">{{ visiteur.idVisiteur }}</th>
+                <th style="color: #337ab7;">{{ visiteur.getsecteurintervention() }}</th>
+                <th style="font-size: 12px;">{{ visiteur.nom }}</th>
+                <th style="font-size: 12px;">{{ visiteur.prenom }}</th>
+                <th style="font-size: 12px;">{{ visiteur.login }}</th>
+                <th style="font-size: 12px;">{{ visiteur.mdp}}</th>
+                <th style="font-size: 12px;">{{ visiteur.adresse }}</th>
+                <th style="font-size: 12px;">{{ visiteur.cp }}</th>
+                <th style="font-size: 12px;">{{ visiteur.ville }}</th>
+                <th style="font-size: 12px;">{{ visiteur.dateEmbauche }}</th>
+                <th style="font-size: 12px;">{{ visiteur.privileges }}</th>
+            </tr>
 
-{% endfor %}
-</tbody>
-</table>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
